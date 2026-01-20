@@ -4,7 +4,7 @@
 ### End-to-End Detection & OCR System
 
 [![Award](https://img.shields.io/badge/🏆_Award-Featured_Project-gold?style=for-the-badge)](https://cse.buffalo.edu/~sreyasee/CSE574/projects.html)
-![YOLO](https://img.shields.io/badge/YOLO-v11-FF0000?style=for-the-badge&logo=yolo&logoColor=white)
+[![YOLO](https://img.shields.io/badge/YOLO-v11-FF0000?style=for-the-badge&logo=yolo&logoColor=white)](https://docs.ultralytics.com/models/yolo11/)
 ![OpenCV](https://img.shields.io/badge/OpenCV-Computer_Vision-green?style=for-the-badge&logo=opencv&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
 
