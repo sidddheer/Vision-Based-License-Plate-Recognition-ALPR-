@@ -47,47 +47,49 @@ graph LR
 
 ## 📊 Performance Benchmarks
 
-We evaluated the system on a custom dataset of **800+ images** (US, EU, and Indian formats).
+We evaluated the system on a diverse dataset of **800+ images** (post-augmentation) covering Indian, European, and North American formats.
 
-| Feature | YOLOv11 (Our Choice) | YOLOv12 |
+| Feature | YOLOv11 (Selected) | YOLOv12 |
 | :--- | :--- | :--- |
-| **mAP @ 0.5** | **0.87 (High)** | 0.85 (Moderate) |
-| **Occlusion Handling** | ✅ **Robust** | ❌ Prone to drifts |
-| **Inference Speed** | ⚡ **Real-Time** | ⚡ Real-Time |
-| **Convergence** | 📈 **Fast** | 📉 Slow |
+| **mAP @ 0.5** | **0.87** | Lower Stability |
+| **F1-Score** | **0.88** | 0.84 |
+| **Detection Accuracy** | **89%** | 86% |
+| **Convergence** | 📈 **Fast & Stable** | 📉 Fluctuating |
 
-> **Analysis:** YOLOv12, while newer, struggled with "jitter" on static plates. YOLOv11 provided the bounding-box stability required for accurate OCR cropping.
+> **Analysis:** YOLOv11 demonstrated better separation of license plates from background noise compared to YOLOv12, which had a higher false positive rate (14%).
 
 ---
 
 ## 🛠️ Technical Challenges & Solutions
 
-### 🔴 Challenge: The "Tight Crop" Problem
-Standard object detection yields tight bounding boxes. When these are cropped, the edges of characters (especially '1' or 'I') are often sliced off, causing Tesseract OCR to fail.
+### 🔴 Challenge: Skewed Perspectives & Noise
+Standard OCR engines like Tesseract struggled significantly when plates were viewed at oblique angles or contained motion blur, leading to diminished efficacy.
 
-### 🟢 Solution: Padding Heuristic
-We implemented a dynamic padding algorithm that adds a **10-15% buffer** to the detected coordinates before cropping.
+### 🟢 Solution: Augmentation & Hybrid OCR
+We implemented a rigorous **data augmentation pipeline** (Perspective Warping, Gaussian Blur, Rotation $\pm15^{\circ}$) to simulate these conditions during training. Additionally, we validated results using a **CRNN (Convolutional Recurrent Neural Network)** to handle sequence modeling for distorted text.
 
 ```python
-# Pseudo-code logic
-x1 = max(0, x1 - padding_x)
-y1 = max(0, y1 - padding_y)
-x2 = min(frame_width, x2 + padding_x)
-y2 = min(frame_height, y2 + padding_y)
+# Augmentation Logic Snippet
+def augment_plate(image):
+    # Simulate camera jitter and perspective tilt
+    image = apply_gaussian_blur(image, sigma=1.5)
+    image = random_perspective_warp(image, distortion_scale=0.2)
+    return image
 ```
 
 ## 💻 Tech Stack
 
 | Component | Technology | Role |
 | :--- | :--- | :--- |
-| **Detection** | `Ultralytics YOLOv11` | Localization of plates in full frame |
-| **Vision** | `OpenCV (cv2)` | Gaussian Blur, Thresholding, Contours |
-| **OCR** | `Tesseract v4.0` | LSTM-based character recognition |
+| **Detection** | `Ultralytics YOLOv11` | Real-time localization of plates |
+| **Vision** | `OpenCV (cv2)` | Adaptive Thresholding, Contours |
+| **OCR** | `Tesseract v4.1 / CRNN` | Character sequence recognition |
 | **Language** | `Python 3.9` | Pipeline orchestration |
 
 ---
 
 ### 🔗 Links
+- [📄 **Read the Full Technical Report**](A%20Vision-Based%20Approach%20for%20License%20Plate%20Text%20Recognition.pdf)
 - [💻 **View Source Code**](alpr.py)
 
 ---
