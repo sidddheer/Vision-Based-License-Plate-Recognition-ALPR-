@@ -3,7 +3,7 @@
 # 🚘 Vision-Based License Plate Recognition (ALPR)
 ### End-to-End Detection & OCR System
 
-![Award](https://img.shields.io/badge/🏆_Award-Featured_Project-gold?style=for-the-badge)
+[![Award](https://img.shields.io/badge/🏆_Award-Featured_Project-gold?style=for-the-badge)](https://cse.buffalo.edu/~sreyasee/CSE574/projects.html)
 ![YOLO](https://img.shields.io/badge/YOLO-v11-FF0000?style=for-the-badge&logo=yolo&logoColor=white)
 ![OpenCV](https://img.shields.io/badge/OpenCV-Computer_Vision-green?style=for-the-badge&logo=opencv&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
