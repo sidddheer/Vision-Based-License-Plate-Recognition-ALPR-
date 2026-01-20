@@ -88,7 +88,6 @@ y2 = min(frame_height, y2 + padding_y)
 ---
 
 ### 🔗 Links
-- [📄 **Read the Full Technical Report**](A Vision-Based Approach for License Plate Text Recognition.pdf)
 - [💻 **View Source Code**](alpr.py)
 
 ---
