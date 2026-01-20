@@ -10,7 +10,7 @@
 
 *A high-performance ALPR system featured on the University Projects Portal for its robust handling of real-world constraints.*
 
-[View Code](alpr.py) • [Read the Report](A Vision-Based Approach for License Plate Text Recognition.pdf)
+[View Code](alpr.py) • [Read the Report](A%20Vision-Based%20Approach%20for%20License%20Plate%20Text%20Recognition.pdf)
 
 </div>
 
