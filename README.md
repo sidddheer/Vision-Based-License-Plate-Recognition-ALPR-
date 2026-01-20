@@ -42,3 +42,54 @@ graph LR
     D --> E[Adaptive Thresholding]
     E --> F[Tesseract OCR]
     F --> G[Text Output]
+```
+
+
+## 📊 Performance Benchmarks
+
+We evaluated the system on a custom dataset of **800+ images** (US, EU, and Indian formats).
+
+| Feature | YOLOv11 (Our Choice) | YOLOv12 |
+| :--- | :--- | :--- |
+| **mAP @ 0.5** | **0.87 (High)** | 0.85 (Moderate) |
+| **Occlusion Handling** | ✅ **Robust** | ❌ Prone to drifts |
+| **Inference Speed** | ⚡ **Real-Time** | ⚡ Real-Time |
+| **Convergence** | 📈 **Fast** | 📉 Slow |
+
+> **Analysis:** YOLOv12, while newer, struggled with "jitter" on static plates. YOLOv11 provided the bounding-box stability required for accurate OCR cropping.
+
+---
+
+## 🛠️ Technical Challenges & Solutions
+
+### 🔴 Challenge: The "Tight Crop" Problem
+Standard object detection yields tight bounding boxes. When these are cropped, the edges of characters (especially '1' or 'I') are often sliced off, causing Tesseract OCR to fail.
+
+### 🟢 Solution: Padding Heuristic
+We implemented a dynamic padding algorithm that adds a **10-15% buffer** to the detected coordinates before cropping.
+
+```python
+# Pseudo-code logic
+x1 = max(0, x1 - padding_x)
+y1 = max(0, y1 - padding_y)
+x2 = min(frame_width, x2 + padding_x)
+y2 = min(frame_height, y2 + padding_y)
+```
+
+## 💻 Tech Stack
+
+| Component | Technology | Role |
+| :--- | :--- | :--- |
+| **Detection** | `Ultralytics YOLOv11` | Localization of plates in full frame |
+| **Vision** | `OpenCV (cv2)` | Gaussian Blur, Thresholding, Contours |
+| **OCR** | `Tesseract v4.0` | LSTM-based character recognition |
+| **Language** | `Python 3.9` | Pipeline orchestration |
+
+---
+
+### 🔗 Links
+- [📄 **Read the Full Technical Report**](Report.pdf)
+- [💻 **View Source Code**](alpr.py)
+
+---
+*University at Buffalo | Deep Learning (CSE 676-B)*
